@@ -7,16 +7,20 @@ import { Column } from '@ant-design/plots';
 
 const columns = [
     {
+      title: 'NO.',
+      dataIndex: 'key',
+    },
+    {
       title: 'Name',
       dataIndex: 'name',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
+      title: 'Product',
+      dataIndex: 'product',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
+      title: 'Status',
+      dataIndex: 'status',
     },
   ];
   const data1 = [];
@@ -24,8 +28,8 @@ const columns = [
     data1.push({
       key: i,
       name: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`,
+      product: "i-phone",
+      status: `London, Park Lane no. ${i}`,
     });
   }
 
@@ -93,7 +97,7 @@ const Dashboard = () => {
         
           style: {
             fill: '#FFFFFF',
-            opacity: 1,
+            opacity: 3,
           },
         },
         xAxis: {
@@ -157,8 +161,18 @@ const Dashboard = () => {
             </div>
 
             {/* Resent Orders */}
-            <h3 className="text-2xl font-bold mb-4 mt-8">Resent Orders</h3>
-            <div>    <Table columns={columns} dataSource={data1} /></div>
+           <div>
+           <h3 className="text-2xl font-bold mb-4 mt-8">Resent Orders</h3>
+            <div>    
+                <Table columns={columns} dataSource={data1} />
+            </div>
+           </div>
+
+           {/* resent reviews */}
+           <div className="my-4">
+               <h3 className="text-2xl font-bold mb-4 mt-8">Resent Reviews</h3>
+               <div></div>
+           </div>
         </div>
     );
 };
