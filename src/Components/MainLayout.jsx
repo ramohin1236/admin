@@ -79,7 +79,7 @@ const MainLayout = () => {
                     label: 'Category',
                   },
                 {
-                    key: 'categorylist',
+                    key: 'category-list',
                     icon: <BiCategory />,
                     label: 'Category List',
                   },

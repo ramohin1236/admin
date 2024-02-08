@@ -27,11 +27,10 @@ const columns = [
       status: `London, Park Lane no. ${i}`,
     });
   }
-
-const BlogCategoryList = () => {
+const Customers = () => {
     return (
         <div>
-            <h3 className="text-2xl font-bold mb-4">Blog Categories</h3>
+            <h3 className="text-2xl font-bold mb-4">Customers</h3>
             <div>
             <Table columns={columns} dataSource={data1} />
             </div>
@@ -39,4 +38,4 @@ const BlogCategoryList = () => {
     );
 };
 
-export default BlogCategoryList;
+export default Customers;

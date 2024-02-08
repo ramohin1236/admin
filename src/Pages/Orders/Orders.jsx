@@ -1,3 +1,4 @@
+
 import { Table } from 'antd';
 
 const columns = [
@@ -28,10 +29,10 @@ const columns = [
     });
   }
 
-const BlogCategoryList = () => {
+const Orders = () => {
     return (
         <div>
-            <h3 className="text-2xl font-bold mb-4">Blog Categories</h3>
+            <h3 className="text-4xl font-bold mb-4">Orders</h3>
             <div>
             <Table columns={columns} dataSource={data1} />
             </div>
@@ -39,4 +40,4 @@ const BlogCategoryList = () => {
     );
 };
 
-export default BlogCategoryList;
+export default Orders;
