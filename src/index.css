@@ -8,9 +8,12 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 main {
-    /* height: 85vh; */
+    height: 85vh;
     overflow-y: scroll;
     background-color: transparent !important;
+  }
+  main::-webkit-scrollbar {
+    width: 0px;
   }
 .trigger{
     padding: 0 24px;
