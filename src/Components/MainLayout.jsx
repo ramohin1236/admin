@@ -59,7 +59,7 @@ const MainLayout = () => {
                     label: 'Add Product',
                   },
                 {
-                    key: 'product list',
+                    key: 'product-list',
                     icon: <AiOutlineShoppingCart />,
                     label: 'Product List',
                   },
@@ -69,7 +69,7 @@ const MainLayout = () => {
                     label: 'Brand',
                   },
                 {
-                    key: 'brandlist',
+                    key: 'brand-list',
                     icon: <SiBrandfolder />,
                     label: 'Brand List',
                   },

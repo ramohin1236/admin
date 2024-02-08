@@ -28,10 +28,10 @@ const columns = [
     });
   }
 
-const CategoryList = () => {
+const ProductList = () => {
     return (
         <div>
-        <h3 className="text-2xl font-bold mb-4">Product Categories</h3>
+        <h3 className="text-2xl font-bold mb-4">Product List</h3>
         <div>
         <Table columns={columns} dataSource={data1} />
         </div>
@@ -39,4 +39,4 @@ const CategoryList = () => {
     );
 };
 
-export default CategoryList;
+export default ProductList;
