@@ -1,9 +1,132 @@
-
-
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import "./Dashboard.css";
+import { BsArrowDownRight } from "react-icons/bs";
+import { Column } from '@ant-design/plots';
 const Dashboard = () => {
+    const data = [
+        {
+          type: 'Jan',
+          sales: 38,
+        },
+        {
+          type: 'Feb',
+          sales: 52,
+        },
+        {
+          type: 'Mar',
+          sales: 61,
+        },
+        {
+          type: 'Apr',
+          sales: 145,
+        },
+        {
+          type: 'May',
+          sales: 48,
+        },
+        {
+          type: 'Jun',
+          sales: 38,
+        },
+        {
+          type: 'Jul',
+          sales: 38,
+        },
+        {
+          type: 'Aug',
+          sales: 38,
+        },
+        {
+          type: 'Sep',
+          sales: 38,
+        },
+        {
+          type: 'Oct',
+          sales: 38,
+        },
+        {
+          type: 'Nov',
+          sales: 38,
+        },
+        {
+          type: 'Dec',
+          sales: 38,
+        },
+      ];
+      const config = {
+        data,
+        xField: 'type',
+        yField: 'sales',
+        color: ({ type }) => {
+            return "#ffd333";
+          },
+        label: {
+     
+        //   position: 'middle',
+        
+          style: {
+            fill: '#FFFFFF',
+            opacity: 1,
+          },
+        },
+        xAxis: {
+          label: {
+            autoHide: true,
+            autoRotate: false,
+          },
+        },
+        meta: {
+          type: {
+            alias: 'Month',
+          },
+          sales: {
+            alias: 'Income',
+          },
+        },
+      };
     return (
         <div>
-            <p>DAshboard</p>
+            <h5 className="mb-4">DAshboard</h5>
+            <div className="flex justify-between items-center gap-3">
+                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
+                    <div>
+                        <h2>Total</h2>
+                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
+                    </div>
+                    <div className="flex items-end flex-col">
+                        <h6 className="flex gap-2"><BsArrowDownRight />32%</h6>
+                        <p>Compared To April 2024</p>
+                    </div>
+                </div>
+                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
+                    <div>
+                        <h2>Total</h2>
+                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
+                    </div>
+                    <div className="flex items-end flex-col ">
+                        <h6 className="flex gap-2 text-red-800"><BsArrowDownRight />32%</h6>
+                        <p>Compared To April 2024</p>
+                    </div>
+                </div>
+                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
+                    <div>
+                        <h2>Total</h2>
+                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
+                    </div>
+                    <div className="flex items-end flex-col ">
+                        <h6 className="flex gap-2 text-green-800"><BsArrowDownRight />32%</h6>
+                        <p>Compared To April 2024</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mt-4">
+                <h3 className="text-2xl font-bold mb-4">Income Statics</h3>
+            <div>
+            <Column {...config} />
+            </div>
+            </div>
         </div>
     );
 };

@@ -1,18 +1,16 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import "./MainLayout.css";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined
-} from '@ant-design/icons';
-import { AiOutlineBgColors, AiOutlineDashboard, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
+import { IoIosNotifications } from "react-icons/io";
+import { AiOutlineBgColors, AiOutlineDashboard, AiOutlinePicLeft, AiOutlinePicRight, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
-import { FaBloggerB, FaClipboardList, FaListAlt } from "react-icons/fa";
-import { IoList } from "react-icons/io5";
+import { FaBloggerB, FaClipboardList } from "react-icons/fa";
+import { ImBlog } from "react-icons/im";
 import { SiBrandfolder } from "react-icons/si";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
@@ -21,7 +19,12 @@ const MainLayout = () => {
     return (
         <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo" >
+            <h2 className="text-sky-700 text-2xl font-bold text-center py-3">
+                <span className="sm-logo">CJC</span>
+                <span className="lg-logo">CNC JULLY CUTTING</span>
+                </h2>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -37,7 +40,7 @@ const MainLayout = () => {
           items={[
             {
               key: '',
-              icon: <AiOutlineDashboard className="text-lg	"/>,
+              icon: <AiOutlineDashboard className="text-lg"/>,
               label: 'Dashboard',
             },
             {
@@ -104,7 +107,7 @@ const MainLayout = () => {
                 children:[
                     {
                         key: 'addblog',
-                        icon: <FaBloggerB />,
+                        icon: <ImBlog />,
                         label: 'Add Blog',
                     },
                     {
@@ -114,7 +117,7 @@ const MainLayout = () => {
                     },
                     {
                         key: 'blog-category',
-                        icon: <FaBloggerB />,
+                        icon: <ImBlog />,
                         label: ' Add Blogs Category',
                     },
                     {
@@ -124,20 +127,26 @@ const MainLayout = () => {
                     },
                 ]
               },
+              {
+                key: 'enquiries',
+                icon: <AiOutlineUser />,
+                label: 'Enquiries',
+              },
           ]}
         />
       </Sider>
-      <Layout>
+      <Layout className="site-layout">
         <Header
-          style={{
-            padding: 0,
-            // background: white,
-          }}
+        className="flex justify-between px-4"
+        //   style={{
+        //     padding: 0,
+        //     // background: white,
+        //   }}
         >
           <Button
           className="icon"
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            icon={collapsed ? <AiOutlinePicLeft /> : <AiOutlinePicRight />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
               fontSize: '16px',
@@ -145,17 +154,35 @@ const MainLayout = () => {
               height: 64,
             }}
           />
+          <div className="flex gap-3 items-center">
+          <div className="relative">
+            <IoIosNotifications  className="text-white text-4xl"/>
+          <span className="badge bg-warning rounded-full p-2 ml-4 -top-2 absolute">3</span>
+          </div>
+
+          <div className="flex gap-3 items-center">
+            <div>
+                <img className="w-16 rounded-full" src="https://lh3.googleusercontent.com/a/ACg8ocKk6ggBxxHH6DBtjHWTg9FHwWBoROdtoPO6fqA5zJV1KQ=s260-c-no" alt="" />
+            </div>
+            <div>
+                <h5 className="text-white mb-0">RA Mohin</h5>
+                <p className="text-white mb-0">mohinr26@gmail.com</p>
+            </div>
+          </div>
+          </div>
         </Header>
         <Content
           style={{
             margin: '24px 16px',
             padding: 24,
             minHeight: 280,
-            // background: colorBgContainer,
-            // borderRadius: borderRadiusLG,
+        
           }}
         >
-          Content
+           
+            <Outlet/>
+  
+         
         </Content>
       </Layout>
     </Layout>
