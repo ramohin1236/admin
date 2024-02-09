@@ -54,7 +54,7 @@ const MainLayout = () => {
               label: 'Catalog',
               children:[
                 {
-                    key: 'product',
+                    key: 'add-product',
                     icon: <AiOutlineShoppingCart />,
                     label: 'Add Product',
                   },
@@ -64,9 +64,9 @@ const MainLayout = () => {
                     label: 'Product List',
                   },
                 {
-                    key: 'brand',
+                    key: 'add-brand',
                     icon: <SiBrandfolder />,
-                    label: 'Brand',
+                    label: 'Add Brand',
                   },
                 {
                     key: 'brand-list',
@@ -74,9 +74,9 @@ const MainLayout = () => {
                     label: 'Brand List',
                   },
                 {
-                    key: 'category',
+                    key: 'add-category',
                     icon: <BiCategory />,
-                    label: 'Category',
+                    label: 'Add Category',
                   },
                 {
                     key: 'category-list',
@@ -84,9 +84,9 @@ const MainLayout = () => {
                     label: 'Category List',
                   },
                 {
-                    key: 'color',
+                    key: 'add-color',
                     icon: <AiOutlineBgColors />,
-                    label: 'Color',
+                    label: 'Add Color',
                   },
                 {
                     key: 'colorlist',
