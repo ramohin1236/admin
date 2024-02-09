@@ -1,4 +1,4 @@
-
+import "./AddProduct.css";
 import 'react-quill/dist/quill.snow.css';
 import { useState } from "react";
 

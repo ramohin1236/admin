@@ -160,14 +160,20 @@ const MainLayout = () => {
           <span className="badge bg-warning rounded-full p-2 ml-4 -top-2 absolute">3</span>
           </div>
 
-          <div className="flex gap-3 items-center">
-            <div>
-                <img className="w-16 rounded-full" src="https://lh3.googleusercontent.com/a/ACg8ocKk6ggBxxHH6DBtjHWTg9FHwWBoROdtoPO6fqA5zJV1KQ=s260-c-no" alt="" />
+          <div className="flex gap-3 items-center dropdown" >
+            <div className="m-1 btn btn-0"tabIndex={0} role="button">
+                <img className="w-12 rounded-full" src="https://lh3.googleusercontent.com/a/ACg8ocKk6ggBxxHH6DBtjHWTg9FHwWBoROdtoPO6fqA5zJV1KQ=s260-c-no" alt="" />
             </div>
-            <div>
+            <div className="" >
                 <h5 className="text-white mb-0">RA Mohin</h5>
                 <p className="text-white mb-0">mohinr26@gmail.com</p>
             </div>
+            {/* dropdown  */}
+            <ul tabIndex={0} className="p-2 shadow menu dropdown-content z-[1] bg-gray-500 text-white rounded-box w-52 mt-44 font-semibold ">
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Log Out</a></li>
+    
+  </ul>
           </div>
           </div>
         </Header>

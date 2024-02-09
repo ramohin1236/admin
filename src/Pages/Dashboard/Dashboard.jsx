@@ -119,40 +119,40 @@ const Dashboard = () => {
     
     return (
         <div>
-            <h5 className="mb-4">DAshboard</h5>
+            <h5 className="mb-4 text-3xl font-bold">Dashboard</h5>
             <div className="flex justify-between items-center gap-3">
-                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
+                <div className="flex flex-grow bg-white rounded-md p-5 justify-between items-end">
                     <div>
-                        <h2>Total</h2>
-                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
+                        <h2 className="text-2xl font-semibold text-gray-500">Total</h2>
+                        <p className="text-4xl mt-5 font-bold"> $121212</p>
                     </div>
                     <div className="flex items-end flex-col">
-                        <h6 className="flex gap-2"><BsArrowDownRight />32%</h6>
+                        <h6 className="flex gap-2 text-xl font-semibold"><BsArrowDownRight />32%</h6>
+                        <p className="">Compared To April 2024</p>
+                    </div>
+                </div>
+                <div className="flex flex-grow bg-white rounded-md p-5 justify-between items-end">
+                    <div>
+                        <h2 className="text-2xl font-semibold text-gray-500">Total</h2>
+                        <p className="text-4xl mt-5 font-bold"> $121212</p>
+                    </div>
+                    <div className="flex items-end flex-col ">
+                        <h6 className="flex gap-2 text-xl font-semibold red"><BsArrowDownRight />32%</h6>
                         <p>Compared To April 2024</p>
                     </div>
                 </div>
-                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
+                <div className="flex flex-grow bg-white rounded-md p-5 justify-between items-end">
                     <div>
-                        <h2>Total</h2>
-                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
+                        <h2 className="text-2xl font-semibold text-gray-500">Total</h2>
+                        <p className="text-4xl mt-5 font-bold"> $121212</p>
                     </div>
                     <div className="flex items-end flex-col ">
-                        <h6 className="flex gap-2 text-red-800"><BsArrowDownRight />32%</h6>
-                        <p>Compared To April 2024</p>
-                    </div>
-                </div>
-                <div className="flex flex-grow bg-white rounded-md p-3 justify-between items-end">
-                    <div>
-                        <h2>Total</h2>
-                        <p className="text-4xl mt-5 font-semibold"> $121212</p>
-                    </div>
-                    <div className="flex items-end flex-col ">
-                        <h6 className="flex gap-2 text-green-800"><BsArrowDownRight />32%</h6>
-                        <p>Compared To April 2024</p>
+                        <h6 className="flex gap-2 green text-xl font-semibold"><BsArrowDownRight />32%</h6>
+                        <p className="">Compared To April 2024</p>
                     </div>
                 </div>
             </div>
-{/* pie chart for product sell details */}
+ {/* pie chart for product sell details */}
             <div className="mt-4">
                 <h3 className="text-2xl font-bold mb-4">Income Statics</h3>
             <div>
