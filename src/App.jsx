@@ -15,6 +15,7 @@ import ColorList from './Color/ColorList';
 import CategoryList from './Category/CategoryList';
 import BrandList from './Brand/BrandList';
 import ProductList from './Product/ProductList';
+import AddBlog from './Pages/Blogs/AddBlog';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                <Route path='category-list' element={<CategoryList/>}></Route>
                <Route path='brand-list' element={<BrandList/>}></Route>
                <Route path='product-list' element={<ProductList/>}></Route>
+               <Route path='add-blog' element={<AddBlog/>}></Route>
             </Route>  
           
         </Routes>

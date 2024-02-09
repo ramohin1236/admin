@@ -106,7 +106,7 @@ const MainLayout = () => {
                 label: 'Blogs',
                 children:[
                     {
-                        key: 'addblog',
+                        key: 'add-blog',
                         icon: <ImBlog />,
                         label: 'Add Blog',
                     },
