@@ -10,7 +10,7 @@ import { ImBlog } from "react-icons/im";
 import { SiBrandfolder } from "react-icons/si";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useState } from 'react';
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
@@ -170,8 +170,8 @@ const MainLayout = () => {
             </div>
             {/* dropdown  */}
             <ul tabIndex={0} className="p-2 shadow menu dropdown-content z-[1] bg-gray-500 text-white rounded-box w-52 mt-44 font-semibold ">
-    <li><a href="#">Profile</a></li>
-    <li><a href="#">Log Out</a></li>
+    <li><Link to="">Profile</Link></li>
+    <li><Link to="/">Log Out</Link></li>
     
   </ul>
           </div>
