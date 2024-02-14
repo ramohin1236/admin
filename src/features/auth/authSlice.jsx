@@ -5,6 +5,15 @@ import authService from './authService';
 
 const getUserFormLocalStorage = localStorage.getItem("user") ? JSON.parse(localStorage.getItem('user')) : null;
 
+const userDefaultState={
+    _id: null,
+    firstname: null,
+    lastname:null,
+    email: null,
+    mobile:null,
+    token: null
+}
+
 const initialState={
     user: getUserFormLocalStorage,
     isError: false,

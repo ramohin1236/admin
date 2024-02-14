@@ -1,34 +1,78 @@
-
+/* eslint-disable no-unused-vars */
+import { BiEdit } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { Table } from 'antd';
+import { useEffect, useState } from 'react';
+import { deleteAColor, getColors } from '../features/ColorF/colorSlice';
+import { useDispatch, useSelector } from "react-redux";
 
 const columns = [
     {
-      title: 'NO.',
-      dataIndex: 'key',
+      title: "SNo",
+      dataIndex: "key",
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
+      title: "Name",
+      dataIndex: "name",
     },
     {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
+      title: "Action",
+      dataIndex: "action",
     },
   ];
+  
+  
+const ColorList = () => {
+
+    const [open, setOpen] = useState(false);
+  const [colorId, setcolorId] = useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setcolorId(e);
+  };
+
+
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getColors());
+  }, [dispatch]);
+  const colorState = useSelector((state) => state.color.colors);
   const data1 = [];
-  for (let i = 0; i < 46; i++) {
+  for (let i = 0; i < colorState.length; i++) {
     data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: "i-phone",
-      status: `London, Park Lane no. ${i}`,
+      key: i + 1,
+      name: colorState[i].title,
+      action: (
+        <>
+          <Link
+            to={`/admin/color/${colorState[i]._id}`}
+            className=" text-xl text-blue-500"
+          >
+            <BiEdit />
+          </Link>
+          <button
+            className=" text-xl mt-5 text-red-500 bg-transparent border-0"
+            onClick={() => showModal(colorState[i]._id)}
+          >
+            <AiFillDelete />
+          </button>
+        </>
+      ),
     });
   }
-const ColorList = () => {
+  const deleteColor = (e) => {
+    dispatch(deleteAColor(e));
+
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getColors());
+    }, 100);
+  };
+
     return (
         <div>
             <h3 className="text-2xl font-bold mb-4">Color-List</h3>

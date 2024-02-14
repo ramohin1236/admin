@@ -22,22 +22,15 @@ const columns = [
       dataIndex: 'mobile',
     },
   ];
-  const data1 = [];
-  for (let i = 0; i < 46; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: "i-phone",
-      status: `London, Park Lane no. ${i}`,
-    });
-  }
+
 const Customers = () => {
     const disPatch =useDispatch()
     useEffect(()=>{
         disPatch(getUsers())
     },[disPatch])
     const customerstate = useSelector((state) => state.customer.customers);
-    console.log(customerstate);
+    // console.log(customerstate);
+   
     const data1 = [];
     for (let i = 0; i < customerstate.length; i++) {
       if (customerstate[i].role !== "admin") {

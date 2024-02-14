@@ -6,17 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from './../../features/auth/authSlice';
 import { useEffect } from "react";
 
-let schema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Email should be valid")
-      .required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  });
+
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let schema = yup.object().shape({
+        email: yup
+          .string()
+          .email("Email should be valid")
+          .required("Email is Required"),
+        password: yup.string().required("Password is Required"),
+      });
     const formik = useFormik({
         initialValues: {
           email: '',
@@ -27,17 +28,17 @@ const Login = () => {
             dispatch(login(values));
           },
         });
-        const authState = useSelector((state) => state);
+ 
 
-        const { user, isError, isSuccess, isLoading} = authState.auth;
+        const { user, isError, isSuccess, isLoading, message} =useSelector((state) => state.auth);
       
         useEffect(() => {
-          if (isSuccess) {
+          if (!user== null||isSuccess) {
             navigate("admin");
           } else {
-            navigate("");
+            navigate("")
           }
-        }, [user, isError, isSuccess, isLoading,navigate]);
+        }, [user, isError, isSuccess, isLoading,message,navigate]);
     return (
         <div className="py-5" style={{background : "#ffd333", minHeight: "100vh"}}>
 <br />
@@ -57,9 +58,10 @@ const Login = () => {
              label="email address" 
              id="email" 
              i_class="py-4 px-2 w-full rounded-xl border-2"
+             val={formik.values.email}
              onCh={formik.handleChange("email")}
           
-             val={formik.values.email}
+          
              />
            <div className="error mt-2 text-red-600">
                  {formik.touched.email && formik.errors.email}
@@ -71,8 +73,9 @@ const Login = () => {
              label="password" 
              id="password" 
              i_class="py-4 px-2 w-full  rounded-xl border-2"
-             onCh={formik.handleChange("password")}
              val={formik.values.password}
+             onCh={formik.handleChange("password")}
+            
              />
              <div className="error mt-2 text-red-600">
             {formik.touched.password && formik.errors.password}
