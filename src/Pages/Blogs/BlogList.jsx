@@ -56,12 +56,12 @@ const BlogList = () => {
         <>
           <Link
             to={`/admin/blog/${getBlogState[i].id}`}
-            className=" fs-3 text-danger"
+            className=" text-xl text-blue-500"
           >
             <BiEdit />
           </Link>
           <button
-            className="ms-3 fs-3 text-danger bg-transparent border-0"
+            className="text-xl mt-5 text-red-500 bg-transparent border-0"
             onClick={() => showModal(getBlogState[i]._id)}
           >
             <AiFillDelete />
