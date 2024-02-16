@@ -89,6 +89,7 @@ const AddProduct = () => {
     dispatch(getColors());
   }, [dispatch]);
   const brandState = useSelector((state) => state.brand.brands);
+  const catState = useSelector((state) => state.pCategory.pCategories);
 
     return (
         <div className="mb-4 ">
@@ -143,11 +144,22 @@ const AddProduct = () => {
     </div>
 
     <p className='text-2xl font-bold mt-12'>Select Category</p>
-    <select className='form-control py-4 mb-2 selectt' name="" id="">
+    <select
+     onChange={formik.handleChange("category")}
+     onBlur={formik.handleBlur("category")}
+     value={formik.values.category}
+    className='form-control py-4 mb-2 selectt' name="" id="">
         
         <option  value="">
             Select Category
         </option>
+        {catState.map((i, j) => {
+              return (
+                <option key={j} value={i.title}>
+                  {i.title}
+                </option>
+              );
+            })}
     </select>
     <p className='text-2xl font-bold mt-12'>Select Color</p>
     <select className='form-control py-4 mb-2 selectt' name="" id="">
