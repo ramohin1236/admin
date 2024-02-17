@@ -1,40 +1,22 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
 import "./AddProduct.css";
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import ReactQuill from 'react-quill';
-// import { Stepper } from 'react-form-stepper';
-// import { InboxOutlined } from '@ant-design/icons';
-// import { message, Upload } from 'antd';
 import CustomInput from '../Components/CustomInput';
 import { createProducts, resetState } from './../features/ProductR/ProductSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from './../features/BrandF/brandSlice';
 import { getCategories } from './../features/pcategory/pcategorySlice';
 import { getColors } from './../features/ColorF/colorSlice';
+import { Select } from "antd";
+import Dropzone from "react-dropzone";
+import { delImg, uploadImg } from "../features/uploadF/uploadSlice";
+import { RxCross2 } from "react-icons/rx";
 
-
-// const { Dragger } = Upload;
-// const props = {
-//   name: 'file',
-//   multiple: true,
-//   action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== 'uploading') {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === 'done') {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === 'error') {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log('Dropped files', e.dataTransfer.files);
-//   },
-// };
 
 let schema = yup.object().shape({
     title: yup.string().required("Title is Required"),
@@ -82,7 +64,12 @@ const AddProduct = () => {
         setDesc(e)
   console.log(e);
  }
-
+ 
+ const handleColors = (e) => {
+    setColor(e);
+    console.log(color);
+  };
+console.log(formik.values);
  useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
@@ -90,13 +77,21 @@ const AddProduct = () => {
   }, [dispatch]);
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
-
+  const colorState = useSelector((state) => state.color.colors);
+  const imgState = useSelector((state) => state.upload.images);
+  const coloropt = [];
+  colorState.forEach((i) => {
+    coloropt.push({
+      label: i.title,
+      value: i._id,
+    });
+  });
     return (
         <div className="mb-4 ">
             <h3 className="text-4xl mb-4">Add Products</h3>
       
             <div className="">
-  <form  onSubmit={formik.handleSubmit} className="flex gap-3 flex-col ">
+  <form type="submit"   onSubmit={formik.handleSubmit} className="flex gap-3 flex-col ">
  
     <div className="mt-4">
     <p className='text-2xl font-bold mt-12'>Product Title</p>
@@ -131,8 +126,8 @@ const AddProduct = () => {
  <p className='text-2xl font-bold mt-12'>Product Price</p>
     <CustomInput 
      name="price"
-     onChng={formik.handleChange("price")}
-     onBlr={formik.handleBlur("price")}
+     onCh={formik.handleChange("price")}
+     onBl={formik.handleBlur("price")}
      val={formik.values.price}
     type="number" 
     i_class="py-4 px-2 w-full rounded-xl border-2" 
@@ -142,6 +137,21 @@ const AddProduct = () => {
     
             {formik.touched.price && formik.errors.price}
     </div>
+ <p className='text-2xl font-bold mt-12'>Product Quantity</p>
+    <CustomInput 
+      name="quantity"
+      onCh={formik.handleChange("quantity")}
+      onBl={formik.handleBlur("quantity")}
+      val={formik.values.quantity}
+    type="number" 
+    i_class="py-4 px-2 w-full rounded-xl border-2" 
+    label="Enter Product Price"/>
+
+<div className="text-red-500">
+            {formik.touched.quantity && formik.errors.quantity}
+          </div>
+
+   
 
     <p className='text-2xl font-bold mt-12'>Select Category</p>
     <select
@@ -161,13 +171,22 @@ const AddProduct = () => {
               );
             })}
     </select>
+    <div className="error text-red-500">
+            {formik.touched.category && formik.errors.category}
+          </div>
     <p className='text-2xl font-bold mt-12'>Select Color</p>
-    <select className='form-control py-4 mb-2 selectt' name="" id="">
-   
-        <option  value="">
-            Select Color
-        </option>
-    </select>
+    <Select
+            mode="multiple"
+            allowClear
+            className="w-100"
+            placeholder="Select colors"
+            defaultValue={color}
+            onChange={(i) => handleColors(i)}
+            options={coloropt}
+          />
+          <div className="error">
+            {formik.touched.color && formik.errors.color}
+          </div>
     <p className='text-2xl font-bold mt-12'>Select Brand</p>
     <select
      onChange={formik.handleChange("brand")}
@@ -185,21 +204,43 @@ const AddProduct = () => {
               );
             })}
     </select>
-
+    <div className="error text-red-500">
+            {formik.touched.brand && formik.errors.brand}
+          </div>
     <p className='text-2xl font-bold mt-12'>Upload Product Images</p>
-    {/* <Dragger {...props}>
-    <p className="ant-upload-drag-icon">
-      <InboxOutlined />
-    </p>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-    <p className="ant-upload-hint">
-      Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-      banned files.
-    </p>
-  </Dragger> */}
-   
+    <div className="bg-white border-1 p-20 text-center">
+    <Dropzone
+              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag drop some files here, or click to select files
+                    </p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+     </div>
+     <div className="showimages flex flex-wrap gap-3">
+            {imgState?.map((i, j) => {
+              return (
+                <div className="relative" key={j}>
+                    <RxCross2  type="button" className="absolute text-2xl cursor-pointer"
+                       onClick={() => dispatch(delImg(i.public_id))}
+                    style={{ top: "30px", right: "10px" }}/>
+                 
+                  <img src={i.url} alt="" width={300} height={300} />
+                </div>
+              );
+            })}
+          </div>
     <div className="text-center items-center mt-5 ">
-    <button className="btn btn-success font-bold text-white border-0 rounded-lg px-24 uppercase">Add product</button>
+    <button
+     type="submit"
+     className="btn btn-success font-bold text-white border-0 rounded-lg px-24 uppercase">Add product</button>
     </div>
   </form>
             </div>
