@@ -22,14 +22,15 @@ let schema = yup.object().shape({
     title: yup.string().required("Title is Required"),
     description: yup.string().required("Description is Required"),
     price: yup.number().required("Price is Required"),
+    quantity: yup.number().required("Quantity is Required"),
     brand: yup.string().required("Brand is Required"),
     category: yup.string().required("Category is Required"),
-    tags: yup.string().required("Tag is Required"),
+    // tags: yup.string().required("Tag is Required"),
     color: yup
       .array()
       .min(1, "Pick at least one color")
       .required("Color is Required"),
-    quantity: yup.number().required("Quantity is Required"),
+   
   });
 
 
@@ -37,44 +38,30 @@ let schema = yup.object().shape({
 const AddProduct = () => {
     const dispatch = useDispatch();
     const [color, setColor] = useState([]);
-    const [brand, setBrand] = useState([]);
-    const formik = useFormik({
-        initialValues: {
-          title: "",
-          description: "",
-          price: "",
-          brand: "",
-          category: "",
-          tags: "",
-          color: "",
-          quantity: "",
-          images: "",
-        },validationSchema: schema,
-        onSubmit: (values) => {
-          dispatch(createProducts(values));
-          formik.resetForm();
-          setColor(null);
-          setTimeout(() => {
-            dispatch(resetState());
-          }, 3000);
-        },
-      });
+
+    const [images, setImages] = useState([]);
+   
+    useEffect(() => {
+        dispatch(getBrands());
+        dispatch(getCategories());
+        dispatch(getColors());
+      }, [dispatch]);
     const [desc, setDesc]= useState(0);
     const handleDesc =(e)=>{
         setDesc(e)
   console.log(e);
  }
- 
+
+
  const handleColors = (e) => {
     setColor(e);
     console.log(color);
   };
-console.log(formik.values);
- useEffect(() => {
-    dispatch(getBrands());
-    dispatch(getCategories());
-    dispatch(getColors());
-  }, [dispatch]);
+
+ 
+
+  
+
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
@@ -86,13 +73,53 @@ console.log(formik.values);
       value: i._id,
     });
   });
+
+ 
+
+  const img = [];
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      price: "",
+      quantity: "",
+      brand: "",
+      category: "",
+      color: "",
+     images: "",
+    //   tags: "",
+  
+  
+   
+    },validationSchema: schema,
+    onSubmit: (values) => {
+        console.log(values);
+        // alert(JSON.stringify(values))
+      dispatch(createProducts(values));
+    //   formik.resetForm();
+    //   setColor(null);
+    //   setTimeout(() => {
+    //     dispatch(resetState());
+    //   }, 3000);
+    },
+  });
+  useEffect(() => {
+    formik.values.color = color
+    formik.values.images = img;
+  }, [ formik.values,color,img]);
     return (
         <div className="mb-4 ">
             <h3 className="text-4xl mb-4">Add Products</h3>
       
             <div className="">
   <form type="submit"   onSubmit={formik.handleSubmit} className="flex gap-3 flex-col ">
- 
+                               {/* product title ----------------------------*/}
     <div className="mt-4">
     <p className='text-2xl font-bold mt-12'>Product Title</p>
     <CustomInput 
@@ -110,7 +137,7 @@ console.log(formik.values);
     </div>
     </div>
   
- 
+                                {/* product Description---------------------- */}
  <div className='mb-5'>
  <p className='text-2xl font-bold mt-12'>Product Description</p>
  <ReactQuill 
@@ -122,7 +149,7 @@ console.log(formik.values);
             {formik.touched.description && formik.errors.description}
     </div>
  </div>
-
+                                {/* product price ---------------*/}
  <p className='text-2xl font-bold mt-12'>Product Price</p>
     <CustomInput 
      name="price"
@@ -137,6 +164,8 @@ console.log(formik.values);
     
             {formik.touched.price && formik.errors.price}
     </div>
+
+                           {/* prduct quantity------------------ */}
  <p className='text-2xl font-bold mt-12'>Product Quantity</p>
     <CustomInput 
       name="quantity"
@@ -152,7 +181,7 @@ console.log(formik.values);
           </div>
 
    
-
+                        {/* product category */}
     <p className='text-2xl font-bold mt-12'>Select Category</p>
     <select
      onChange={formik.handleChange("category")}
@@ -174,6 +203,8 @@ console.log(formik.values);
     <div className="error text-red-500">
             {formik.touched.category && formik.errors.category}
           </div>
+
+                                 {/* product color---------------- */}
     <p className='text-2xl font-bold mt-12'>Select Color</p>
     <Select
             mode="multiple"
@@ -184,9 +215,10 @@ console.log(formik.values);
             onChange={(i) => handleColors(i)}
             options={coloropt}
           />
-          <div className="error">
+          <div className="error text-red-500">
             {formik.touched.color && formik.errors.color}
           </div>
+                        {/* produt brands----------------- */}
     <p className='text-2xl font-bold mt-12'>Select Brand</p>
     <select
      onChange={formik.handleChange("brand")}
@@ -237,11 +269,12 @@ console.log(formik.values);
               );
             })}
           </div>
-    <div className="text-center items-center mt-5 ">
+   
     <button
+    
      type="submit"
      className="btn btn-success font-bold text-white border-0 rounded-lg px-24 uppercase">Add product</button>
-    </div>
+
   </form>
             </div>
         </div>
