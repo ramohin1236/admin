@@ -16,6 +16,8 @@ import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/uploadF/uploadSlice";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 let schema = yup.object().shape({
@@ -25,7 +27,7 @@ let schema = yup.object().shape({
     quantity: yup.number().required("Quantity is Required"),
     brand: yup.string().required("Brand is Required"),
     category: yup.string().required("Category is Required"),
-    // tags: yup.string().required("Tag is Required"),
+    tags: yup.string().required("Tag is Required"),
     color: yup
       .array()
       .min(1, "Pick at least one color")
@@ -37,6 +39,7 @@ let schema = yup.object().shape({
 
 const AddProduct = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [color, setColor] = useState([]);
 
     const [images, setImages] = useState([]);
@@ -66,6 +69,17 @@ const AddProduct = () => {
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
+  const newProduct = useSelector((state) => state.product);
+
+  const { isSuccess, isError, isLoading, createdProduct } = newProduct;
+  useEffect(() => {
+    if (isSuccess && createdProduct) {
+      toast.success("Product Added Successfullly!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading,createdProduct]);
   const coloropt = [];
   colorState.forEach((i) => {
     coloropt.push({
@@ -100,13 +114,14 @@ const AddProduct = () => {
     },validationSchema: schema,
     onSubmit: (values) => {
         console.log(values);
-        alert(JSON.stringify(values))
-    //   dispatch(createProducts(values));
-    //   formik.resetForm();
-    //   setColor(null);
-    //   setTimeout(() => {
-    //     dispatch(resetState());
-    //   }, 3000);
+        // alert(JSON.stringify(values))
+      dispatch(createProducts(values));
+      formik.resetForm();
+      setColor(null);
+      setTimeout(() => {
+        navigate("/product-list")
+        dispatch(resetState());
+      }, 3000);
     },
   });
   useEffect(() => {
@@ -220,7 +235,7 @@ const AddProduct = () => {
             <option value="popular">Popular</option>
             <option value="special">Special</option>
           </select>
-          <div className="error">
+          <div className="text-red-600">
             {formik.touched.tags && formik.errors.tags}
           </div>
 

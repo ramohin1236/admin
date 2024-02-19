@@ -7,6 +7,8 @@ import { AiOutlineBgColors, AiOutlineDashboard, AiOutlinePicLeft, AiOutlinePicRi
 import { BiCategory } from "react-icons/bi";
 import { FaBloggerB, FaClipboardList } from "react-icons/fa";
 import { ImBlog } from "react-icons/im";
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import { SiBrandfolder } from "react-icons/si";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useState } from 'react';
@@ -185,7 +187,18 @@ const MainLayout = () => {
         
           }}
         >
-           
+            <ToastContainer 
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+        
+            />
             <Outlet/>
   
          
