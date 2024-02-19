@@ -93,15 +93,15 @@ const AddProduct = () => {
       category: "",
       color: "",
      images: "",
-    //   tags: "",
+      tags: "",
   
   
    
     },validationSchema: schema,
     onSubmit: (values) => {
         console.log(values);
-        // alert(JSON.stringify(values))
-      dispatch(createProducts(values));
+        alert(JSON.stringify(values))
+    //   dispatch(createProducts(values));
     //   formik.resetForm();
     //   setColor(null);
     //   setTimeout(() => {
@@ -110,9 +110,9 @@ const AddProduct = () => {
     },
   });
   useEffect(() => {
-    formik.values.color = color
+    formik.values.color = color ? color : " ";
     formik.values.images = img;
-  }, [ formik.values,color,img]);
+  }, [formik.values,color, img]);
     return (
         <div className="mb-4 ">
             <h3 className="text-4xl mb-4">Add Products</h3>
@@ -203,6 +203,27 @@ const AddProduct = () => {
     <div className="error text-red-500">
             {formik.touched.category && formik.errors.category}
           </div>
+          {/* product tags */}
+          <p className='text-2xl font-bold mt-12'>Select Tags</p>
+          <select
+            name="tags"
+            onChange={formik.handleChange("tags")}
+            onBlur={formik.handleBlur("tags")}
+            value={formik.values.tags}
+            className="form-control py-3 mb-3"
+            id=""
+          >
+            <option value="" disabled>
+              Select Tags
+            </option>
+            <option value="featured">Featured</option>
+            <option value="popular">Popular</option>
+            <option value="special">Special</option>
+          </select>
+          <div className="error">
+            {formik.touched.tags && formik.errors.tags}
+          </div>
+
 
                                  {/* product color---------------- */}
     <p className='text-2xl font-bold mt-12'>Select Color</p>
