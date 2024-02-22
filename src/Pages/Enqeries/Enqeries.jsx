@@ -6,6 +6,7 @@ import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAEnquiry, getEnquiries, resetState, updateAEnquiry } from "../../features/EnquiryF/enquirySlice";
 import { Link } from "react-router-dom";
+import CustomModal from "../../Components/CustomModal";
 const columns = [
     {
       title: "SNo",
@@ -117,6 +118,14 @@ const Enqeries = () => {
             <div>
             <Table columns={columns} dataSource={data1} />
             </div>
+            <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteEnq(enqId);
+        }}
+        title="Are you sure you want to delete this enquiry?"
+      />
         </div>
     );
 };
