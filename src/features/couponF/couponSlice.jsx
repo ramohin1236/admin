@@ -128,6 +128,7 @@ export const couponSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
+
       })
       .addCase(updateACoupon.pending, (state) => {
         state.isLoading = true;

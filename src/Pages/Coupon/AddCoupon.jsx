@@ -1,10 +1,9 @@
 import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { createCoupon, updateACoupon } from "../../features/couponF/couponSlice";
+import { createCoupon, getACoupon, updateACoupon } from "../../features/couponF/couponSlice";
 import { resetState } from "../../features/BlogF/blogSlice";
 import CustomInput from "../../Components/CustomInput";
 
@@ -21,8 +20,6 @@ let schema = yup.object().shape({
 const AddCoupon = () => {
 
     const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
   const getCouponId = location.pathname.split("/")[3];
   const newCoupon = useSelector((state) => state.coupon);
 
@@ -36,45 +33,50 @@ const AddCoupon = () => {
     couponExpiry,
     updatedCoupon,
   } = newCoupon;
-//   const changeDateFormet = (date) => {
-//     const newDate = new Date(date).toLocaleDateString();
-//     const [month, day, year] = newDate.split("/");
-//     return [year, month, day].join("-");
-//   };
 
 
-//   useEffect(() => {
-//     if (getCouponId !== undefined) {
-//       dispatch(getACoupon(getCouponId));
-//     } else {
-//       dispatch(resetState());
-//     }
-//   }, [getCouponId]);
+  const changeDateFormet = (date) => {
+    const newDate = new Date(date).toLocaleDateString();
+    const [month, day, year] = newDate.split("/");
+    return [year, month, day].join("-");
+  };
+
+
+  useEffect(() => {
+    if (getCouponId !== undefined) {
+      dispatch(getACoupon(getCouponId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getCouponId,dispatch]);
 
   useEffect(() => {
     if (isSuccess && createdCoupon) {
       toast.success("Coupon Added Successfullly!");
     }
-    // if (isSuccess && updatedCoupon) {
-    //   toast.success("Coupon Updated Successfullly!");
-   
-    // }
-    if (isError ) {
+    if (isSuccess && updatedCoupon) {
+      toast.success("Coupon Updated Successfullly!");
+
+    }
+    if (isError && couponName && couponDiscount && couponExpiry) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading,createdCoupon]);
+  }, [isSuccess, isError, isLoading,couponDiscount, couponExpiry,couponName, createdCoupon, updatedCoupon]);
 //   && couponName && couponDiscount && couponExpiry
 const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       name: couponName || "",
-    //   expiry: changeDateFormet(couponExpiry) || "",
+      expiry: changeDateFormet(couponExpiry) || "",
       discount: couponDiscount || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-
- 
+      if (getCouponId !== undefined) {
+        const data = { id: getCouponId, couponData: values };
+        dispatch(updateACoupon(data));
+        dispatch(resetState());
+      } else {
         dispatch(createCoupon(values));
         formik.resetForm();
         setTimeout(() => {
@@ -82,7 +84,7 @@ const formik = useFormik({
         }, 300);
       }
     },
-  );
+  });
 
 
     return (
