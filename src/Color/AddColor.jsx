@@ -1,7 +1,7 @@
 import {  useDispatch, useSelector } from "react-redux";
 import CustomInput from "../Components/CustomInput";
 import * as yup from "yup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { createColor, getAColor, updateAColor } from "../features/ColorF/colorSlice";
 import { resetState } from "../features/BrandF/brandSlice";
@@ -16,7 +16,7 @@ let schema = yup.object().shape({
 const AddColor= () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const location = useLocation();
     const getColorId = location.pathname.split("/")[3];
     const newColor = useSelector((state) => state.color);
@@ -41,12 +41,12 @@ const AddColor= () => {
       }
       if (isSuccess && updatedColor) {
         toast.success("Color Updated Successfullly!");
-        navigate("/admin/list-color");
+
       }
       if (isError) {
         toast.error("Something Went Wrong!");
       }
-    }, [isSuccess, isError, isLoading, createdColor,navigate, updatedColor]);
+    }, [isSuccess, isError, isLoading, createdColor, updatedColor]);
     const formik = useFormik({
       enableReinitialize: true,
       initialValues: {
