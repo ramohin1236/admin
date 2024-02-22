@@ -73,8 +73,7 @@ const formik = useFormik({
     },
     validationSchema: schema,
     onSubmit: (values) => {
-        alert(JSON.stringify(values))
-        console.log(values);
+
  
         dispatch(createCoupon(values));
         formik.resetForm();
