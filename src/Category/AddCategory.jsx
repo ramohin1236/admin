@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import CustomInput from "../Components/CustomInput";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ let schema = yup.object().shape({
   });
 const AddCategory = () => {
     const dispatch = useDispatch();
-    const location = useLocation();
+
 
     const getPCatId = location.pathname.split("/")[3];
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const AddCategory = () => {
         }
         if (isSuccess && updatedCategory) {
           toast.success("Category Updated Successfullly!");
-          navigate("/admin/list-category");
+         
         }
         if (isError) {
           toast.error("Something Went Wrong!");

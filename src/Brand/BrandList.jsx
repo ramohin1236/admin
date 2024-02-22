@@ -63,7 +63,7 @@ const BrandList = () => {
             className="ms-3 text-2xl text-red-500 bg-transparent border-0"
             onClick={() => showModal(brandState[i]._id)}
           >
-            <AiFillDelete />
+            <AiFillDelete className='text-2xl text-red-500'/>
           </button>
         </>
       ),

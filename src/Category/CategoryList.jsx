@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteAProductCategory, getCategories, resetState } from '../features/pcategory/pcategorySlice';
 import { useEffect, useState } from 'react';
+import CustomModal from '../Components/CustomModal';
 
 const columns = [
     {
@@ -43,10 +44,7 @@ const CategoryList = () => {
       dispatch(resetState());
       dispatch(getCategories());
     }, [dispatch]);
-   
     const pCatStat = useSelector((state) => state.pCategory.pCategories);
-
-
     const data1 = [];
     for (let i = 0; i < pCatStat.length; i++) {
       data1.push({
@@ -56,34 +54,41 @@ const CategoryList = () => {
           <>
             <Link
               to={`/admin/category/${pCatStat[i]._id}`}
-              className=" text-xl text-blue-500"
+              className=" fs-3 text-danger"
             >
-              <BiEdit />
+              <BiEdit className='text-2xl text-blue-500'/>
             </Link>
             <button
-              className="mt-3 text-xl text-red-500 bg-transparent border-0"
+              className="ms-3 fs-3 text-danger bg-transparent border-0"
               onClick={() => showModal(pCatStat[i]._id)}
             >
-              <AiFillDelete />
+              <AiFillDelete className='text-2xl text-red-500'/>
             </button>
           </>
         ),
       });
     }
-    console.log(data1);
     const deleteCategory = (e) => {
-        dispatch(deleteAProductCategory(e));
-        setOpen(false);
-        setTimeout(() => {
-          dispatch(getCategories());
-        }, 100);
-      };
+      dispatch(deleteAProductCategory(e));
+      setOpen(false);
+      setTimeout(() => {
+        dispatch(getCategories());
+      }, 100);
+    };
     return (
         <div>
         <h3 className="text-2xl font-bold mb-4">Product Categories</h3>
         <div>
         <Table columns={columns} dataSource={data1} />
         </div>
+        <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteCategory(pCatId);
+        }}
+        title="Are you sure you want to delete this Product Category?"
+      />
     </div>
     );
 };

@@ -56,6 +56,7 @@ function App() {
                <Route path='add-color' element={<AddColor/>}></Route>
                <Route path='color/:id' element={<AddColor/>}></Route>
                <Route path='add-category' element={<AddCategory/>}></Route>
+               <Route path='category/:id' element={<AddCategory/>}></Route>
             </Route>  
           
         </Routes>
