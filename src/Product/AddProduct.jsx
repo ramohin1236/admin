@@ -49,6 +49,7 @@ const AddProduct = () => {
         dispatch(getCategories());
         dispatch(getColors());
       }, [dispatch]);
+
     const [desc, setDesc]= useState(0);
     const handleDesc =(e)=>{
         setDesc(e)
@@ -58,12 +59,8 @@ const AddProduct = () => {
 
  const handleColors = (e) => {
     setColor(e);
-    console.log(color);
+    // console.log(color);
   };
-
- 
-
-  
 
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
@@ -119,7 +116,7 @@ const AddProduct = () => {
       formik.resetForm();
       setColor(null);
       setTimeout(() => {
-        navigate("/product-list")
+        navigate("admin/product-list")
         dispatch(resetState());
       }, 3000);
     },
@@ -275,6 +272,7 @@ const AddProduct = () => {
     <div className="error text-red-500">
             {formik.touched.brand && formik.errors.brand}
           </div>
+          {/* product images--------------------------------- */}
     <p className='text-2xl font-bold mt-12'>Upload Product Images</p>
     <div className="bg-white border-1 p-20 text-center">
     <Dropzone

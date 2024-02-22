@@ -1,5 +1,6 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { config } from './../../utils/axiosConfig';
 
 
 
@@ -9,7 +10,7 @@ import { base_url } from "../../utils/base_url";
   }
 
 const createCategory = async (category) => {
-  const response = await axios.post(`${base_url}category/`, category);
+  const response = await axios.post(`${base_url}category/`, category,config);
 
   return response.data;
 };

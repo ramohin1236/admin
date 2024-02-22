@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { Table } from 'antd';
-import { deleteABlogCat, getCategories, resetState } from '../../features/BlogCatF/blogCatSlice';
+
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteABlogCat, getCategories, resetState } from '../../features/bCat/bcategorySlice';
 const columns = [
     {
       title: "SNo",

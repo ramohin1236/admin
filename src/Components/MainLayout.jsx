@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { SiBrandfolder } from "react-icons/si";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useState } from 'react';
+import { RiCouponLine } from "react-icons/ri";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
@@ -101,6 +102,25 @@ const MainLayout = () => {
                 key: 'orders',
                 icon: <FaClipboardList />,
                 label: 'Orders',
+              },
+            //   marketing
+            {
+                key: 'marketing',
+                icon: <RiCouponLine />,
+                label: 'Marketing',
+                children:[
+                    {
+                        key: 'coupon',
+                        icon: <RiCouponLine />,
+                        label: 'Add Coupon',
+                    },
+                    {
+                        key: 'coupon-list',
+                        icon: <FaBloggerB />,
+                        label: 'Coupon List',
+                    },
+                    
+                ]
               },
             {
                 key: 'blog',
