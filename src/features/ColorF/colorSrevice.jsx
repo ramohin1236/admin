@@ -30,7 +30,7 @@ const getColor = async (id) => {
 };
 
 const deleteColor = async (id) => {
-  const response = await axios.delete(`${base_url}color/${id}`);
+  const response = await axios.delete(`${base_url}color/${id}`,config);
 
   return response.data;
 };

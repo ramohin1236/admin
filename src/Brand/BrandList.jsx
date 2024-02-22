@@ -7,6 +7,8 @@ import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CustomModal from '../Components/CustomModal';
 import { deleteABrand, getBrands, resetState } from '../features/BrandF/brandSlice';
+
+
 const columns = [
     {
       title: "SNo",
@@ -73,7 +75,7 @@ const BrandList = () => {
     setOpen(false);
     setTimeout(() => {
       dispatch(getBrands());
-    }, 100);
+    }, 1000);
   };
     return (
         <div>

@@ -43,6 +43,7 @@ function App() {
                <Route path='coupon-list' element={<CouponList/>}></Route>
                <Route path='customers' element={<Customers/>}></Route>
                <Route path='colorlist' element={<ColorList/>}></Route>
+              
                <Route path='category-list' element={<CategoryList/>}></Route>
                
                <Route path='add-brand' element={<AddBrand/>}></Route>
@@ -53,6 +54,7 @@ function App() {
                <Route path='add-blog' element={<AddBlog/>}></Route>
                <Route path='blog-category' element={<AddBlogCat/>}></Route>
                <Route path='add-color' element={<AddColor/>}></Route>
+               <Route path='color/:id' element={<AddColor/>}></Route>
                <Route path='add-category' element={<AddCategory/>}></Route>
             </Route>  
           
